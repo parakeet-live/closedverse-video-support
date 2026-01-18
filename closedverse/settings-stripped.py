@@ -244,6 +244,7 @@ if os.path.isdir(os.path.join(BASE_DIR, '.git')):
         CLOSEDVERSE_GIT_URL = git_url_without_ext + '/commit/' + CLOSEDVERSE_GIT_VERSION
 
 # Google reCAPTCHA (v2) settings
+# only works for v2, v3 will not work
 # This feature won't work if these fields are not populated.
 RECAPTCHA_PUBLIC_KEY = None
 RECAPTCHA_PRIVATE_KEY = None
@@ -264,7 +265,7 @@ LOGIN_EXEMPT_URLS = {
     r'^login/$',
     r'^signup/$',
     r'^logout/$',
-    r'^reset/$',
+    r'^reset/$', # requires an SMTP server to function
     r'^help/rules$',
     r'^help/contact$',
     r'^help/login$',
@@ -333,3 +334,28 @@ XFF_HEADER_REQUIRED = True
 
 # if this is false then gifs will not animate when uploaded
 allow_gifs = True
+
+# smtp entries for things like password reset, uncomment them and put your things in, mailtrap is a good service if you need an smtp server, these things worked in my configuration
+
+#EMAIL_HOST = ''
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_PORT = ''
+#DEFAULT_FROM_EMAIL = ''
+#EMAIL_USE_TLS = True 
+#EMAIL_USE_SSL = False
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# uncomment all the stuff below if it says smtp auth extension is not supported by server
+
+#import smtplib
+#from django.core.mail.backends.smtp import EmailBackend
+
+#if not hasattr(smtplib.SMTP, '_patched_starttls'):
+    #original_starttls = smtplib.SMTP.starttls
+
+    #def safe_starttls(self, *args, **kwargs):
+        #return original_starttls(self)
+
+    #smtplib.SMTP.starttls = safe_starttls
+    #smtplib.SMTP._patched_starttls = True 
