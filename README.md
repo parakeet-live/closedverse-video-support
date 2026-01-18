@@ -3,7 +3,7 @@
 so its closedverse, but with video mp4 support and all the features from the other closedverse clones merged into one (thanks arian)
 
 # Install/setup
-_Updated October 5th, 2023_
+_Updated January 18th, 2026_
 
 Installs like any other Django app. If the tutorial below doesn't help, here are some other ones that accomplish the same thing:
 * [Cedar-Django's readme](https://github.com/Mistake35/Cedar-Django/blob/main/README.md)
@@ -28,7 +28,7 @@ When you're using venv, **from now on, you will need to remember to run that act
 Downloading the master.zip and extracting it will work, but it's recommended to use Git.
 * Install Git with `sudo apt install git`
 * Then run the following:
-`git clone https://github.com/TermOfficial/closedverse-video-support`
+`git clone https://github.com/parakeet-live/closedverse-video-support`
 
 Now Closedverse should be downloaded to the `closedverse-video-support` folder.
 ### Install from dependencies.txt
@@ -68,7 +68,21 @@ Here, you can play with the Django admin panel. Just go to /admin on your instan
 By default, the site will...
 * Use SQLite by default
 
-The database is at `closedverse.sqlite3` by default. To change this, search `DATABASES` in settings.py. If you want to use MySQL, look up how to use it in a Django app. Too lazy for a tutorial for this at the moment. OK?
+The database is at `closedverse.sqlite3` by default. To change this, search `DATABASES` in settings.py. If you want to use MySQL, follow these instructions below. Use mariadb-server, and phpmyadmin.
+1. Copy this configuration below, and paste it replacing the old DATABASES entry.
+`DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mysql_db_name_here',
+        'USER': 'mysql_username_here',
+        'PASSWORD': 'mysql_user_password_here',
+        'HOST': '127.0.0.1',
+        'PORT': '', # the default port is 3306.
+    }
+}`
+2. Put in all your MySQL database information.
+3. Run `python3 manage.py makemigrations closedverse_main`, then `python3 manage.py migrate`.
+You should have a MySQL database now.
 * Upload images locally to `media/`
 
 As of writing, there's no way to use another image provider, such as Cloudinary (that has been stripped out because they suck). This may pose an issue if your VPS has a low bandwidth limit.
@@ -105,9 +119,12 @@ If there's no problems, make the service run at bootup by running `sudo systemct
 
 **PROTIP:** optimize and adjust Gunicorn to your liking (**you can also enable SSL!**) by following [their settings page.](https://docs.gunicorn.org/en/stable/settings.html) Either add settings to the .service file or start using a conf file.
 
-# Troubleshooting
-TBD. File issues if any of this doesn't work (I'm at least 20% confident it won't), or if there's common issues I should document. Thanks!
+# Troubleshooting 
+Q: SMTP Auth not supported? What?
+A: Uncomment the configuration at the nearest end of "closedverse/settings.py".
 
+Q: I don't want a virtual environment, but I keep getting the externally managed error.
+A: After your command, add "--break-system-packages". This is not recommended.
 
 # Copyright
 Copyright 2017 Arian Kordi, all rights reserved to their respective owners. (Nintendo, Hatena Co Ltd.)
