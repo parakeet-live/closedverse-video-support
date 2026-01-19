@@ -1,3 +1,4 @@
+This repository has moved to https://github.com/ariankordi/closedverse
 # closedverse-video-support
 Fork of [Closedverse](https://github.com/ariankordi/closedverse) with features from other forks ("Blueverse", Cedar-Django prior to July 2023).
 
